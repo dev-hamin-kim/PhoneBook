@@ -8,28 +8,32 @@
 import UIKit
 import SnapKit
 
+protocol ContactsTableViewCellDelegate: AnyObject {
+    
+}
+
 final class ContactsTableViewCell: UITableViewCell {
+    
+    weak var delegate: ContactsTableViewCellDelegate?
     
     static let id = "ContactsTableViewCell"
     
     private let profileImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .gray
-        imageView.layer.borderWidth = 30
-        imageView.layer.borderColor = .none
+        imageView.backgroundColor = .white
         return imageView
     }()
     
     private let nameLabel: UILabel = {
         let label = UILabel()
-        label.text = "홍길동"
+        label.text = ""
         label.textColor = .black
         return label
     }()
     
     private let numberLabel: UILabel = {
         let label = UILabel()
-        label.text = "010-1234-5678"
+        label.text = ""
         label.textColor = .black
         return label
     }()
@@ -37,37 +41,44 @@ final class ContactsTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        configureUI()
+        setTableViewCell()
+        setConstraints()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configureUI() {
-        contentView.backgroundColor = .black
+    func setCellData(with contact: Contact) {
+        self.nameLabel.text = contact.name
+        self.numberLabel.text = contact.number
+        self.profileImageView.image = UIImage(systemName: "person.circle")
+    }
+    
+    private func setTableViewCell() {
+        contentView.backgroundColor = .white
         
         [
             profileImageView,
             nameLabel,
             numberLabel
         ].forEach { contentView.addSubview($0) }
-        
-        setConstraints()
     }
     
     private func setConstraints() {
         profileImageView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalToSuperview().inset(20)
+            make.height.equalToSuperview()
+            make.width.equalTo(self.snp.height)
         }
         nameLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.leading.equalTo(profileImageView.snp.trailing).offset(30)
+            make.leading.equalTo(profileImageView.snp.trailing).offset(20)
         }
         numberLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview().inset(20)
+            make.trailing.equalToSuperview().inset(30)
         }
     }
 }
