@@ -10,7 +10,6 @@ import SnapKit
 
 final class ContactsTableView: UIView, UITableViewDataSource, UITableViewDelegate {
 
-    
     private let tableView = UITableView()
     
     override init(frame: CGRect) {
