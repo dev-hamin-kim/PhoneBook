@@ -31,6 +31,7 @@ final class MainViewController: UIViewController {
 extension MainViewController {
     @objc private func onTap() {
         print("탭")
+        navigationController?.pushViewController(AddContactViewController(), animated: true)
     }
 }
 
