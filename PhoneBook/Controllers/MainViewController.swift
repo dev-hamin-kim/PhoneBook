@@ -11,6 +11,7 @@ import SnapKit
 final class MainViewController: UIViewController {
     
     private lazy var contactsTableView: ContactsTableView = .init()
+    private let model: ContactsList = .init()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,9 +22,9 @@ final class MainViewController: UIViewController {
     private func setNavigationBar() {
         navigationItem.title = "친구 목록"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "추가",
-                                                     style: .plain,
-                                                     target: self,
-                                                     action: #selector(onTap))
+                                                            style: .plain,
+                                                            target: self,
+                                                            action: #selector(onTap))
     }
     
 }

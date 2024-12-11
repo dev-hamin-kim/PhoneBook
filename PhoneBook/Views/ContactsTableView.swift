@@ -39,12 +39,12 @@ final class ContactsTableView: UIView, UITableViewDataSource, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Contact.Contacts.count
+        return ContactsList.Contacts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ContactsTableViewCell.id, for: indexPath) as! ContactsTableViewCell
-        cell.setCellData(with: Contact.Contacts[indexPath.row])
+        cell.setCellData(with: ContactsList.Contacts[indexPath.row])
         cell.delegate = self
         return cell
     }
