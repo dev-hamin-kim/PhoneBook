@@ -8,7 +8,15 @@
 import UIKit
 import SnapKit
 
+protocol AddContactViewDelegate: AnyObject {
+//    func setName()
+//    func setNumber()
+    func setRandomImage()
+}
+
 final class AddContactView: UIView {
+    
+    weak var delegate: AddContactViewDelegate?
     
     private let profileImage: UIImageView = {
         let image = UIImageView()
@@ -45,10 +53,21 @@ final class AddContactView: UIView {
         setupViewComponents()
         self.profileImage.image = UIImage(systemName: "person.circle")
         setConstraints()
+        generateRandomImageButton.addTarget(self, action: #selector(onTap), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setDelegate(to target: AddContactViewDelegate) {
+        self.delegate = target
+    }
+    
+    func setProfileImage(to image: UIImage) {
+        DispatchQueue.main.async {
+            self.profileImage.image = image
+        }
     }
     
     private func setupViewComponents() {
@@ -80,9 +99,11 @@ final class AddContactView: UIView {
             make.centerX.equalToSuperview()
             make.leading.trailing.equalTo(safeAreaLayoutGuide).inset(20)
         }
-    }
-}
 
-#Preview {
-    AddContactView()
+    }
+    
+    @objc private func onTap() {
+        delegate?.setRandomImage()
+        print("setRandomImage button tapped")
+    }
 }
