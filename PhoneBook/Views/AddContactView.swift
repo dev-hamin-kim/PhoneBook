@@ -17,6 +17,8 @@ final class AddContactView: UIView, UITextFieldDelegate {
     
     weak var delegate: AddContactViewDelegate?
     
+    weak var delegate: AddContactViewDelegate?
+    
     private let profileImage: UIImageView = {
         let image = UIImageView()
         return image
