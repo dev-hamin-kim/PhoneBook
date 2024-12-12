@@ -25,7 +25,7 @@
 
 <!--URLS-->
 [license-url]: LICENSE.md
-[readme-kor-url]: ../README_ko.md
+[readme-kor-url]: /README_ko.md
 
 
 <!--목차-->
