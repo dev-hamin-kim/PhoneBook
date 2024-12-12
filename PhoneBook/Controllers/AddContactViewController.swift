@@ -20,6 +20,15 @@ final class AddContactViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         bind()
+        setNavigationBar()
+    }
+    
+    private func setNavigationBar() {
+        navigationItem.title = "연락처 추가"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장",
+                                                            style: .plain,
+                                                            target: self,
+                                                            action: #selector(onTap))
     }
     
     private func bind() {
@@ -29,10 +38,34 @@ final class AddContactViewController: UIViewController {
     }
 }
 
+extension AddContactViewController {
+    @objc private func onTap() {
+        addContactView.saveContact()
+        ContactsList.shared.addNewContact(model)
+        navigationController?.popViewController(animated: true)
+    }
+}
 
-extension AddContactViewController: AddContactViewDelegate {
+extension AddContactViewController: AddContactViewDelegate, UITextFieldDelegate {
+    
 
     func setRandomImage() {
         model.setRandomImage()
+    }
+    
+    func saveContact(name: String, number: String) {
+        model.name = name
+        model.number = number
+    }
+    
+    
+    // Called when the user begins editing
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        print("User started editing")
+    }
+    
+    // Called when the user ends editing
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        print("User finished editing")
     }
 }

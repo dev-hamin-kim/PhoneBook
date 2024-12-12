@@ -8,13 +8,12 @@
 import UIKit
 import SnapKit
 
-protocol AddContactViewDelegate: AnyObject {
-//    func setName()
-//    func setNumber()
+protocol AddContactViewDelegate: AnyObject, UITextFieldDelegate {
     func setRandomImage()
+    func saveContact(name: String, number: String)
 }
 
-final class AddContactView: UIView {
+final class AddContactView: UIView, UITextFieldDelegate {
     
     weak var delegate: AddContactViewDelegate?
     
@@ -24,9 +23,9 @@ final class AddContactView: UIView {
     }()
     
     private let generateRandomImageButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.setTitle("랜덤 이미지 생성", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.systemBlue, for: .normal)
         button.titleLabel?.adjustsFontSizeToFitWidth = true
         return button
     }()
@@ -36,6 +35,11 @@ final class AddContactView: UIView {
         textField.keyboardType = .default
         textField.returnKeyType = .done
         textField.borderStyle = .roundedRect
+        textField.placeholder = "이름"
+        textField.clearButtonMode = .whileEditing
+        textField.autocapitalizationType = .none
+        textField.autocorrectionType = .no
+        textField.spellCheckingType = .no
         return textField
     }()
     
@@ -44,6 +48,8 @@ final class AddContactView: UIView {
         textField.keyboardType = .phonePad
         textField.returnKeyType = .done
         textField.borderStyle = .roundedRect
+        textField.placeholder = "전화번호"
+        textField.clearButtonMode = .whileEditing
         return textField
     }()
     
@@ -53,7 +59,9 @@ final class AddContactView: UIView {
         setupViewComponents()
         self.profileImage.image = UIImage(systemName: "person.circle")
         setConstraints()
-        generateRandomImageButton.addTarget(self, action: #selector(onTap), for: .touchUpInside)
+        generateRandomImageButton.addTarget(self,
+                                            action: #selector(setRandomImage),
+                                            for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
@@ -62,12 +70,21 @@ final class AddContactView: UIView {
     
     func setDelegate(to target: AddContactViewDelegate) {
         self.delegate = target
+        nameTextField.delegate = target
+        numberTextField.delegate = target
     }
     
     func setProfileImage(to image: UIImage) {
         DispatchQueue.main.async {
             self.profileImage.image = image
         }
+    }
+    
+    func saveContact() {
+        guard let name = nameTextField.text,
+              let number = numberTextField.text else { return }
+        
+        delegate?.saveContact(name: name, number: number)
     }
     
     private func setupViewComponents() {
@@ -93,16 +110,18 @@ final class AddContactView: UIView {
             make.top.equalTo(profileImage.snp.bottom).offset(70)
             make.centerX.equalToSuperview()
             make.leading.trailing.equalTo(safeAreaLayoutGuide).inset(20)
+            make.height.equalTo(50)
         }
         numberTextField.snp.makeConstraints { make in
             make.top.equalTo(nameTextField.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
             make.leading.trailing.equalTo(safeAreaLayoutGuide).inset(20)
+            make.height.equalTo(50)
         }
 
     }
     
-    @objc private func onTap() {
+    @objc private func setRandomImage() {
         delegate?.setRandomImage()
         print("setRandomImage button tapped")
     }
