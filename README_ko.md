@@ -39,11 +39,11 @@
 # 프로젝트에 대해서
 
 PhoneBook은 아래 항목들에 대한 본인의 숙련도를 높이려는 목적으로 제작한 iOS 프로젝트입니다.
-- MVC + Delegate design pattern in UIKit
-- Code-based UIs in UIKit + SnapKit
-- Retrieving image from an URL by using Kingfisher
-- (WIP) Fetch JSON with RESTful API by using URLSession/Alamofire
-- (WIP) Create, Read, Update, Delete data by using CoreData
+- UIKit에서의 MVC + 델리게이트 디자이니 패턴
+- UIKit + SnapKit을 활용한 코드베이스 UI
+- Kingfisher를 활용한 URL으로부터 이미지 전송받기 
+- (진행중) URLSession/Alamofire를 통한 RESTful API 활용 및 JSON 사용
+- (진행중) CoreData를 활용한 데이터 생성, 읽기, 수정, 삭제 (통칭 CRUD)
 
 ## 사용된 기술
 
