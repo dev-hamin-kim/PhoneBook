@@ -28,8 +28,13 @@ class Contact {
         profileImage = image
     }
     
+    
+    
+    // TO-DO: call setRandomImage beforehands to reduce delay from fetching the image from the network.
+    // (i.e. when the view is about to load, or after setRandomImageButton has been pressed.
+    // -- in other words, prepare the image before it is needed.)
     func setRandomImage() {
-        let randomNumber = Int.random(in: 1...3)
+        let randomNumber = Int.random(in: 1...1000)
         guard let url = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(randomNumber).png") else { return }
         
         KingfisherManager.shared.retrieveImage(with: url) { result in

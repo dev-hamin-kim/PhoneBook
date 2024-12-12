@@ -38,13 +38,17 @@ final class ContactsTableView: UIView, UITableViewDataSource, UITableViewDelegat
         }
     }
     
+    func reloadTableView() {
+        tableView.reloadData()
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ContactsList.Contacts.count
+        return ContactsList.shared.Contacts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ContactsTableViewCell.id, for: indexPath) as! ContactsTableViewCell
-        cell.setCellData(with: ContactsList.Contacts[indexPath.row])
+        cell.setCellData(with: ContactsList.shared.Contacts[indexPath.row])
         cell.delegate = self
         return cell
     }

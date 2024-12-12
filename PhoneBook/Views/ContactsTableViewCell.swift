@@ -20,21 +20,21 @@ final class ContactsTableViewCell: UITableViewCell {
     
     private let profileImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .white
+        imageView.backgroundColor = .systemBackground
         return imageView
     }()
     
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.text = ""
-        label.textColor = .black
+        label.textColor = .label
         return label
     }()
     
     private let numberLabel: UILabel = {
         let label = UILabel()
         label.text = ""
-        label.textColor = .black
+        label.textColor = .label
         return label
     }()
     
@@ -56,7 +56,7 @@ final class ContactsTableViewCell: UITableViewCell {
     }
     
     private func setTableViewCell() {
-        contentView.backgroundColor = .white
+        contentView.backgroundColor = .systemBackground
         
         [
             profileImageView,

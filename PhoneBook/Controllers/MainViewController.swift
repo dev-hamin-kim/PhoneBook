@@ -19,6 +19,12 @@ final class MainViewController: UIViewController {
         view = contactsTableView
     }
     
+    // TO-DO - needs refactoring.
+    // Reload table only when the model has changed. (by using observer?)
+    override func viewWillAppear(_ animated: Bool) {
+        contactsTableView.reloadTableView()
+    }
+    
     private func setNavigationBar() {
         navigationItem.title = "친구 목록"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "추가",
