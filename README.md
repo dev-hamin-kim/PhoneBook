@@ -39,7 +39,7 @@
 
 # About the Project
 
-PhoneBook is a self-educational iOS app project to get familiar with:
+PhoneBook is a self-educational iOS app project to get myself to be familiar with:
 - MVC + Delegate design pattern in UIKit
 - Code-based UIs in UIKit + SnapKit
 - Retrieving image from an URL by using Kingfisher
