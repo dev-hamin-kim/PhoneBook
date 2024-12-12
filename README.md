@@ -31,7 +31,6 @@
 <!--목차-->
 # Table of Contents
 - [About the Project](#about-the-project)
-  - [Features](#features)
   - [Technologies](#technologies)
 - [Acknowledgement](#acknowledgement)
 - [Contact](#contact)
