@@ -25,7 +25,7 @@
 
 <!--URLS-->
 [license-url]: LICENSE.md
-[readme-eng-url]: ../README.md
+[readme-eng-url]: /README.md
 
 
 <!--목차-->
