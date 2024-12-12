@@ -8,7 +8,13 @@
 import UIKit
 import SnapKit
 
-final class ContactsTableView: UIView, UITableViewDataSource, UITableViewDelegate {
+protocol ContactsTableViewDelegate: AnyObject, UITableViewDataSource, UITableViewDelegate {
+    
+}
+
+final class ContactsTableView: UIView {
+    
+    weak var delegate: ContactsTableViewDelegate?
 
     private let tableView = UITableView()
     
@@ -24,8 +30,8 @@ final class ContactsTableView: UIView, UITableViewDataSource, UITableViewDelegat
     
     private func setTableView() {
         tableView.register(ContactsTableViewCell.self, forCellReuseIdentifier: ContactsTableViewCell.id)
-        tableView.dataSource = self
-        tableView.delegate = self
+        tableView.dataSource = delegate
+        tableView.delegate = delegate
         tableView.separatorStyle = .singleLine
         tableView.rowHeight = 80
         self.addSubview(tableView)
@@ -41,19 +47,20 @@ final class ContactsTableView: UIView, UITableViewDataSource, UITableViewDelegat
     func reloadTableView() {
         tableView.reloadData()
     }
-    
+}
+
+extension MainViewController: ContactsTableViewDelegate, ContactsTableViewCellDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ContactsList.shared.Contacts.count
+        return coreDataRepository.contacts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ContactsTableViewCell.id, for: indexPath) as! ContactsTableViewCell
-        cell.setCellData(with: ContactsList.shared.Contacts[indexPath.row])
         cell.delegate = self
+        let contact = coreDataRepository.contacts[indexPath.row]
+        cell.setCellData(with: Contact(name: contact.name, number: contact.number))
         return cell
     }
-}
-
-extension ContactsTableView: ContactsTableViewCellDelegate {
+    
     
 }

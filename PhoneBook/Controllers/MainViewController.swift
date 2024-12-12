@@ -12,17 +12,23 @@ final class MainViewController: UIViewController {
     
     private lazy var contactsTableView: ContactsTableView = .init()
     private let model: ContactsList = .init()
+    let coreDataRepository = CoreDataRepository(modelName: "PhoneBook")
+    
+    override func loadView() {
+        view = contactsTableView
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setNavigationBar()
-        view = contactsTableView
     }
     
     // TO-DO - needs refactoring.
     // Reload table only when the model has changed. (by using observer?)
     override func viewWillAppear(_ animated: Bool) {
+        fetchContacts()
         contactsTableView.reloadTableView()
+        print(coreDataRepository.contacts.count)
     }
     
     private func setNavigationBar() {
@@ -38,7 +44,11 @@ final class MainViewController: UIViewController {
 extension MainViewController {
     @objc private func onTap() {
         print("탭")
-        navigationController?.pushViewController(AddContactViewController(), animated: true)
+        navigationController?.pushViewController(AddContactViewController(coreDataRepository: coreDataRepository), animated: true)
+    }
+    
+    private func fetchContacts() {
+        coreDataRepository.fetch()
     }
 }
 
